@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Nombres_parfaits_amicaux_sociables | Data Science Xperiences</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Nombres_parfaits_amicaux_sociables" />
+<meta name="author" content="Cédric Bohnert" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="On se propose dans cette étude d’exhiber des nombres parfaits, des nombres amicaux et des nombres sociables." />
+<meta property="og:description" content="On se propose dans cette étude d’exhiber des nombres parfaits, des nombres amicaux et des nombres sociables." />
+<link rel="canonical" href="https://cbohnert67.github.io/Data-Science-Xperiences/jupyter/2021/11/30/nombres_parfaits_amicaux_sociables.html" />
+<meta property="og:url" content="https://cbohnert67.github.io/Data-Science-Xperiences/jupyter/2021/11/30/nombres_parfaits_amicaux_sociables.html" />
+<meta property="og:site_name" content="Data Science Xperiences" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-11-30T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Nombres_parfaits_amicaux_sociables" />
+<script type="application/ld+json">
+{"description":"On se propose dans cette étude d’exhiber des nombres parfaits, des nombres amicaux et des nombres sociables.","mainEntityOfPage":{"@type":"WebPage","@id":"https://cbohnert67.github.io/Data-Science-Xperiences/jupyter/2021/11/30/nombres_parfaits_amicaux_sociables.html"},"url":"https://cbohnert67.github.io/Data-Science-Xperiences/jupyter/2021/11/30/nombres_parfaits_amicaux_sociables.html","@type":"BlogPosting","author":{"@type":"Person","name":"Cédric Bohnert"},"headline":"Nombres_parfaits_amicaux_sociables","dateModified":"2021-11-30T00:00:00-06:00","datePublished":"2021-11-30T00:00:00-06:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/Data-Science-Xperiences/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://cbohnert67.github.io/Data-Science-Xperiences/feed.xml" title="Data Science Xperiences" /><link rel="shortcut icon" type="image/x-icon" href="/Data-Science-Xperiences/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/Data-Science-Xperiences/">Data Science Xperiences</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/Data-Science-Xperiences/about/">About Me</a><a class="page-link" href="/Data-Science-Xperiences/search/">Search</a><a class="page-link" href="/Data-Science-Xperiences/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Nombres_parfaits_amicaux_sociables</h1><p class="page-description">On se propose dans cette étude d'exhiber des nombres parfaits, des nombres amicaux et des nombres sociables.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-11-30T00:00:00-06:00" itemprop="datePublished">
+        Nov 30, 2021
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Cédric Bohnert</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      6 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/Data-Science-Xperiences/categories/#jupyter">jupyter</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/cbohnert67/Data-Science-Xperiences/tree/master/_notebooks/2021-11-30-nombres_parfaits_amicaux_sociables.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/Data-Science-Xperiences/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/cbohnert67/Data-Science-Xperiences/master?filepath=_notebooks%2F2021-11-30-nombres_parfaits_amicaux_sociables.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/Data-Science-Xperiences/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h3"><a href="#Quelques-définitions">Quelques définitions </a></li>
+<li class="toc-entry toc-h3"><a href="#Recherche-de-nombres-parfaits-par-méthode-naive">Recherche de nombres parfaits par méthode naive </a></li>
+<li class="toc-entry toc-h3"><a href="#Un-somme-particulière">Un somme particulière </a></li>
+<li class="toc-entry toc-h3"><a href="#Recherche-de-nombres-amicaux-par-méthode-naive">Recherche de nombres amicaux par méthode naive </a></li>
+<li class="toc-entry toc-h3"><a href="#Recherche-de-nombres-sociables-par-méthode-améliorée">Recherche de nombres sociables par méthode améliorée </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-11-30-nombres_parfaits_amicaux_sociables.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Quelques-définitions">
+<a class="anchor" href="#Quelques-d%C3%A9finitions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quelques définitions<a class="anchor-link" href="#Quelques-d%C3%A9finitions"> </a>
+</h3>
+<p>Un nombre parfait est un nombre $n$ dont la somme de ses diviseurs propres (donc différents de $n$) est égale à $n$.</p>
+<p>Un couple de nombre amicaux $(m,n)$ est un couple constitué de deux entiers strictement positifs distincts tels que la somme des diviseurs propre de chacun est égal à l'autre.</p>
+<p>Un nombre sociable est un élément d'une chaîne sociable qui est une séquence $(a_1, \dots, a_n)$ d'entiers strictement positifs tels que chacun soit égal à la somme des diviseurs propres du précédent (cycliquement).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Recherche-de-nombres-parfaits-par-méthode-naive">
+<a class="anchor" href="#Recherche-de-nombres-parfaits-par-m%C3%A9thode-naive" aria-hidden="true"><span class="octicon octicon-link"></span></a>Recherche de nombres parfaits par méthode naive<a class="anchor-link" href="#Recherche-de-nombres-parfaits-par-m%C3%A9thode-naive"> </a>
+</h3>
+<p>On recherchera les diviseurs propres d'un entier strictement positif par exhaustivité.</p>
+<p>On testera la somme des diviseurs propres ainsi obtenus pour vérifier si un nombre $n$ est parfait.</p>
+<p>On recherchera tous les nombres parfaits inférieurs ou égaux à un entier $N$ donné.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">getDivisors</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">"""Returns a list of all positive divisors of integer n&gt;0"""</span>
+    <span class="n">divisors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">divisors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">divisors</span>
+<span class="k">def</span> <span class="nf">isPerfect</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">"""Returns True of n is a perfect number"""</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">getDivisors</span><span class="p">(</span><span class="n">n</span><span class="p">))</span><span class="o">-</span><span class="n">n</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span>
+
+<span class="k">def</span> <span class="nf">getPerfectNumbers</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="sd">"""Returns a list of all perfect numbers less than N&gt;0"""</span>
+    <span class="n">perfects</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">isPerfect</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">perfects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">perfects</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">getDivisors</span><span class="p">(</span><span class="mi">124</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[1, 2, 4, 31, 62, 124]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">isPerfect</span><span class="p">(</span><span class="mi">124</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>False</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">isPerfect</span><span class="p">(</span><span class="mi">496</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Recherchons les nombres parfaits inférieurs à 100000 et mesurons le temps de calcul :</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">time</span> perfects = getPerfectNumbers(100000)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>CPU times: user 3min 23s, sys: 4 ms, total: 3min 23s
+Wall time: 3min 23s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">perfects</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[6, 28, 496, 8128]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Les nombres parfaits inférieurs à 100000 sont 6, 28, 496 et 8128.</p>
+<p>Le temps de calcul est assez long pour cette valeur et nous verrons ultérieurement que l'on peut améliorer la rapidité de ce calcul.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Un-somme-particulière">
+<a class="anchor" href="#Un-somme-particuli%C3%A8re" aria-hidden="true"><span class="octicon octicon-link"></span></a>Un somme particulière<a class="anchor-link" href="#Un-somme-particuli%C3%A8re"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Calculons la somme des inverses des diviseurs des quelques premiers nombres parfaits :</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">perfects</span><span class="p">:</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">getDivisors</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"n = "</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s2">": "</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>n =  6 :  2.0
+n =  28 :  2.0
+n =  496 :  2.0
+n =  8128 :  2.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>On observe que cette somme vaut 2 pour les quatre premiers nombres parfaits.</p>
+<p>Conjecturons que ce résultat est valide quelque soit le nombre parfait et démontrons le :</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Soient $n$ un nombre parfait et $d_i$, $i=1, \dots , k$ ses $k$ diviseurs, rangés dans l'ordre croissant et où $d_1=1$ et $d_k=n$.</p>
+<p>Notons $S = \sum_{i=1}^k \frac{1}{d_i}$.</p>
+<p>En multipliant $S$ par $n$ on obtient aisement, $nS = n ( \sum_{i=1}^k \frac{1}{d_i}) = \sum_{i=1}^k \frac{n}{d_i}$.</p>
+<p>Cette dernière somme n'est autre que la somme des diviseurs de $n$ rangés dans l'ordre décroissant.</p>
+<p>Comme $n$ est un nombre parfait, la somme de ses diviseurs vaut $2n$.</p>
+<p>D'où le résultat : $S=2$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Recherche-de-nombres-amicaux-par-méthode-naive">
+<a class="anchor" href="#Recherche-de-nombres-amicaux-par-m%C3%A9thode-naive" aria-hidden="true"><span class="octicon octicon-link"></span></a>Recherche de nombres amicaux par méthode naive<a class="anchor-link" href="#Recherche-de-nombres-amicaux-par-m%C3%A9thode-naive"> </a>
+</h3>
+<p>On recherchera les nombres amicaux $(m,n)$, tels que $m \leq N$, pour un entier $N$ donné :</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">getFriends</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="sd">"""Returns a list of all friendly numbers (m,n) for a given N such that  m&lt;=N"""</span>
+    <span class="n">friends</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">temp</span><span class="p">:</span>
+            <span class="n">s1</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">getDivisors</span><span class="p">(</span><span class="n">m</span><span class="p">))</span><span class="o">-</span><span class="n">m</span>
+            <span class="n">s2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">getDivisors</span><span class="p">(</span><span class="n">s1</span><span class="p">))</span><span class="o">-</span><span class="n">s1</span>
+            <span class="k">if</span> <span class="n">m</span><span class="o">==</span><span class="n">s2</span> <span class="ow">and</span> <span class="n">m</span><span class="o">!=</span><span class="n">s1</span><span class="p">:</span>
+                <span class="n">friends</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">s1</span><span class="p">))</span>
+                <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">friends</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">time</span> getFriends(100000)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>CPU times: user 5min 35s, sys: 3.99 ms, total: 5min 35s
+Wall time: 5min 35s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(220, 284),
+ (1184, 1210),
+ (2620, 2924),
+ (5020, 5564),
+ (6232, 6368),
+ (10744, 10856),
+ (12285, 14595),
+ (17296, 18416),
+ (63020, 76084),
+ (66928, 66992),
+ (67095, 71145),
+ (69615, 87633),
+ (79750, 88730)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Nous déterminons 13 paires de nombres amicaux en 5min 35s.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">time</span> getFriends(200000)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>CPU times: user 23min 14s, sys: 76 ms, total: 23min 14s
+Wall time: 23min 15s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(220, 284),
+ (1184, 1210),
+ (2620, 2924),
+ (5020, 5564),
+ (6232, 6368),
+ (10744, 10856),
+ (12285, 14595),
+ (17296, 18416),
+ (63020, 76084),
+ (66928, 66992),
+ (67095, 71145),
+ (69615, 87633),
+ (79750, 88730),
+ (100485, 124155),
+ (122265, 139815),
+ (122368, 123152),
+ (141664, 153176),
+ (142310, 168730),
+ (171856, 176336),
+ (176272, 180848),
+ (185368, 203432),
+ (196724, 202444)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Cette fois, nous déterminons 22 couples de nombres amicaux mais en plus de 20min de temps de calcul.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Recherche-de-nombres-sociables-par-méthode-améliorée">
+<a class="anchor" href="#Recherche-de-nombres-sociables-par-m%C3%A9thode-am%C3%A9lior%C3%A9e" aria-hidden="true"><span class="octicon octicon-link"></span></a>Recherche de nombres sociables par méthode améliorée<a class="anchor-link" href="#Recherche-de-nombres-sociables-par-m%C3%A9thode-am%C3%A9lior%C3%A9e"> </a>
+</h3>
+<p>On recherchera les chaînes sociables ne faisant intervenir que des nombres inférieurs à 1000000 et contenant au moins un nombre inférieur ou égal à 15000.</p>
+<p>Notons que la somme de tous les diviseurs de $n$ (y compris $n$) s'exprime :</p>
+<p>
+$$s(n)= \prod_{i=1}^k \frac{p_i^{\alpha_i+1}-1}{p_i-1}$$
+</p>
+<p>où les $p_i$ et $\alpha_i$ sont les termes de la décomposition en facteurs premiers de $n$.</p>
+<p>Utiliser cette expression nous permettra de réduire les temps de calculs.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+
+<span class="k">def</span> <span class="nf">getPrimeDecomposition</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">"""Returns a list of all prime factors for a given integer n&gt;0"""</span>
+    <span class="n">primes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="k">d</span>==0):
+        <span class="n">alpha</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="n">d</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">alpha</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">primes</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">d</span><span class="p">,</span> <span class="n">alpha</span><span class="p">))</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">d</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="k">d</span>==0):
+            <span class="n">alpha</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="n">d</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">alpha</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">):</span>
+            <span class="n">primes</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">d</span><span class="p">,</span> <span class="n">alpha</span><span class="p">))</span>
+        <span class="n">d</span> <span class="o">+=</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">primes</span>
+
+<span class="k">def</span> <span class="nf">getDivisorSum</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">"""Returns the sum of divisors of a given integer n&gt;0"""</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">decomposition</span> <span class="o">=</span> <span class="n">getPrimeDecomposition</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">decomposition</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">*=</span> <span class="nb">int</span><span class="p">((</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">getPrimeDecomposition</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(2, 1)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">getPrimeDecomposition</span><span class="p">(</span><span class="mi">28121964</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(2, 2), (3, 1), (13, 1), (71, 1), (2539, 1)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">getDivisorSum</span><span class="p">(</span><span class="mi">196724</span><span class="p">)</span><span class="o">-</span><span class="mi">196724</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>202444</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Vérifions que l'on a bien un algorithme plus rapide en recherchant à nouveau une liste de nombres amicaux :</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">getFriends2</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="sd">"""Returns a list of all friendly numbers (m,n) for a given N such that  m&lt;=N"""</span>
+    <span class="n">friends</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">temp</span><span class="p">:</span>
+            <span class="n">s1</span> <span class="o">=</span> <span class="n">getDivisorSum</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">-</span><span class="n">m</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">s1</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">s2</span> <span class="o">=</span> <span class="n">getDivisorSum</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span><span class="o">-</span><span class="n">s1</span>
+                <span class="k">if</span> <span class="n">m</span><span class="o">==</span><span class="n">s2</span> <span class="ow">and</span> <span class="n">m</span><span class="o">!=</span><span class="n">s1</span><span class="p">:</span>
+                    <span class="n">friends</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">s1</span><span class="p">))</span>
+                    <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">friends</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">time</span> getFriends2(100000)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>CPU times: user 44.9 s, sys: 0 ns, total: 44.9 s
+Wall time: 44.9 s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(220, 284),
+ (1184, 1210),
+ (2620, 2924),
+ (5020, 5564),
+ (6232, 6368),
+ (10744, 10856),
+ (12285, 14595),
+ (17296, 18416),
+ (63020, 76084),
+ (66928, 66992),
+ (67095, 71145),
+ (69615, 87633),
+ (79750, 88730)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">time</span> getFriends2(200000)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>CPU times: user 2min 53s, sys: 8 ms, total: 2min 53s
+Wall time: 2min 53s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(220, 284),
+ (1184, 1210),
+ (2620, 2924),
+ (5020, 5564),
+ (6232, 6368),
+ (10744, 10856),
+ (12285, 14595),
+ (17296, 18416),
+ (63020, 76084),
+ (66928, 66992),
+ (67095, 71145),
+ (69615, 87633),
+ (79750, 88730),
+ (100485, 124155),
+ (122265, 139815),
+ (122368, 123152),
+ (141664, 153176),
+ (142310, 168730),
+ (171856, 176336),
+ (176272, 180848),
+ (185368, 203432),
+ (196724, 202444)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">time</span> getFriends2(300000)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>CPU times: user 5min 44s, sys: 44 ms, total: 5min 44s
+Wall time: 5min 44s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(220, 284),
+ (1184, 1210),
+ (2620, 2924),
+ (5020, 5564),
+ (6232, 6368),
+ (10744, 10856),
+ (12285, 14595),
+ (17296, 18416),
+ (63020, 76084),
+ (66928, 66992),
+ (67095, 71145),
+ (69615, 87633),
+ (79750, 88730),
+ (100485, 124155),
+ (122265, 139815),
+ (122368, 123152),
+ (141664, 153176),
+ (142310, 168730),
+ (171856, 176336),
+ (176272, 180848),
+ (185368, 203432),
+ (196724, 202444),
+ (280540, 365084)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">getAliquote</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">""" Returns aliquote sequence of integer n&gt;0"""</span>
+    <span class="n">aliquote</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span><span class="p">]</span>
+    <span class="k">while</span> <span class="n">aliquote</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">n</span><span class="o">&lt;</span><span class="mi">1000000</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">getDivisorSum</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">-</span><span class="n">n</span>
+        <span class="k">if</span> <span class="n">n</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">aliquote</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">aliquote</span>
+
+<span class="k">def</span> <span class="nf">getSocialChains</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="sd">"""Returns social chains starting with integers less than or equal to N&gt;0"""</span>
+    <span class="n">socials</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">getAliquote</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">temp</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">&gt;</span><span class="mi">2</span> <span class="ow">and</span> <span class="mi">1</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">a</span> <span class="ow">and</span> <span class="n">a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">socials</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+                <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">socials</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">time</span> socials = getSocialChains(200000)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>CPU times: user 7min 53s, sys: 56 ms, total: 7min 53s
+Wall time: 7min 53s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">socials</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[12496, 14288, 15472, 14536, 14264, 12496]
+[14316, 19116, 31704, 47616, 83328, 177792, 295488, 629072, 589786, 294896, 358336, 418904, 366556, 274924, 275444, 243760, 376736, 381028, 285778, 152990, 122410, 97946, 48976, 45946, 22976, 22744, 19916, 17716, 14316]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Nous avons ainsi exhibé deux chaînes sociables ne faisant intervenir que des nombres inférieurs à 1000000 et contenant au moins un nombre inférieur ou égal à 15000.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="cbohnert67/Data-Science-Xperiences"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/Data-Science-Xperiences/jupyter/2021/11/30/nombres_parfaits_amicaux_sociables.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/Data-Science-Xperiences/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/Data-Science-Xperiences/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/Data-Science-Xperiences/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>A personal blog &amp; portfolio from a Data Science enthusiast.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/cbohnert67" title="cbohnert67"><svg class="svg-icon grey"><use xlink:href="/Data-Science-Xperiences/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
