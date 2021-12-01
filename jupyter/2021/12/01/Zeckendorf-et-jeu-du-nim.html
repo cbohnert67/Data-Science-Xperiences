@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Décomposition de Zeckendorf et jeu de Nim | Data Science Xperiences</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Décomposition de Zeckendorf et jeu de Nim" />
+<meta name="author" content="Cédric Bohnert" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="On se propose dans cette étude de calculer la décomposition de Zeckendorf et de l’appliquer à la création d’une stratégie gagnante pour le jeu de Nim." />
+<meta property="og:description" content="On se propose dans cette étude de calculer la décomposition de Zeckendorf et de l’appliquer à la création d’une stratégie gagnante pour le jeu de Nim." />
+<link rel="canonical" href="https://cbohnert67.github.io/Data-Science-Xperiences/jupyter/2021/12/01/Zeckendorf-et-jeu-du-nim.html" />
+<meta property="og:url" content="https://cbohnert67.github.io/Data-Science-Xperiences/jupyter/2021/12/01/Zeckendorf-et-jeu-du-nim.html" />
+<meta property="og:site_name" content="Data Science Xperiences" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-12-01T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Décomposition de Zeckendorf et jeu de Nim" />
+<script type="application/ld+json">
+{"description":"On se propose dans cette étude de calculer la décomposition de Zeckendorf et de l’appliquer à la création d’une stratégie gagnante pour le jeu de Nim.","mainEntityOfPage":{"@type":"WebPage","@id":"https://cbohnert67.github.io/Data-Science-Xperiences/jupyter/2021/12/01/Zeckendorf-et-jeu-du-nim.html"},"url":"https://cbohnert67.github.io/Data-Science-Xperiences/jupyter/2021/12/01/Zeckendorf-et-jeu-du-nim.html","@type":"BlogPosting","author":{"@type":"Person","name":"Cédric Bohnert"},"headline":"Décomposition de Zeckendorf et jeu de Nim","dateModified":"2021-12-01T00:00:00-06:00","datePublished":"2021-12-01T00:00:00-06:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/Data-Science-Xperiences/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://cbohnert67.github.io/Data-Science-Xperiences/feed.xml" title="Data Science Xperiences" /><link rel="shortcut icon" type="image/x-icon" href="/Data-Science-Xperiences/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/Data-Science-Xperiences/">Data Science Xperiences</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/Data-Science-Xperiences/about/">About Me</a><a class="page-link" href="/Data-Science-Xperiences/search/">Search</a><a class="page-link" href="/Data-Science-Xperiences/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Décomposition de Zeckendorf et jeu de Nim</h1><p class="page-description">On se propose dans cette étude de calculer la décomposition de Zeckendorf et de l'appliquer à la création d'une stratégie gagnante pour le jeu de Nim.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-12-01T00:00:00-06:00" itemprop="datePublished">
+        Dec 1, 2021
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Cédric Bohnert</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/Data-Science-Xperiences/categories/#jupyter">jupyter</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/cbohnert67/Data-Science-Xperiences/tree/master/_notebooks/2021-12-01-Zeckendorf-et-jeu-du-nim.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/Data-Science-Xperiences/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/cbohnert67/Data-Science-Xperiences/master?filepath=_notebooks%2F2021-12-01-Zeckendorf-et-jeu-du-nim.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/Data-Science-Xperiences/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h3"><a href="#La-décomposition-de-Zeckendorf">La décomposition de Zeckendorf </a></li>
+<li class="toc-entry toc-h3"><a href="#Implémentation">Implémentation </a></li>
+<li class="toc-entry toc-h3"><a href="#Application-au-jeu-de-Nim">Application au jeu de Nim </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-12-01-Zeckendorf-et-jeu-du-nim.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="La-décomposition-de-Zeckendorf">
+<a class="anchor" href="#La-d%C3%A9composition-de-Zeckendorf" aria-hidden="true"><span class="octicon octicon-link"></span></a>La décomposition de Zeckendorf<a class="anchor-link" href="#La-d%C3%A9composition-de-Zeckendorf"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Si $n$ est un entier naturel, alors il existe une unique représentation de Zeckendorf de $n$.</p>
+<p>Cette décomposition est la liste des uniques nombres de Fibonacci deux à deux distincts et non consécutifs de somme égale à $n$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Implémentation">
+<a class="anchor" href="#Impl%C3%A9mentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implémentation<a class="anchor-link" href="#Impl%C3%A9mentation"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">getNearestFibonacciNumber</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">"""Returns the greatest Fibonacci Number smaller than or equal to n."""</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">n</span>
+    <span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">f3</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">f3</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">):</span>
+        <span class="n">f1</span> <span class="o">=</span> <span class="n">f2</span>
+        <span class="n">f2</span> <span class="o">=</span> <span class="n">f3</span>
+        <span class="n">f3</span> <span class="o">=</span> <span class="n">f1</span> <span class="o">+</span> <span class="n">f2</span>
+    <span class="k">return</span> <span class="n">f2</span>
+
+<span class="k">def</span> <span class="nf">getZeckendorf</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">"""Returns the Zeckendorf decomposition of n."""</span>
+    <span class="n">zeckendorf</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">getNearestFibonacciNumber</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+        <span class="n">zeckendorf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="n">f</span>
+    <span class="k">return</span> <span class="n">zeckendorf</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">zeckendorf</span> <span class="o">=</span> <span class="n">getZeckendorf</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">zeckendorf</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[55, 8, 1]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>On vérifie bien :</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sum</span><span class="p">(</span><span class="n">zeckendorf</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Application-au-jeu-de-Nim">
+<a class="anchor" href="#Application-au-jeu-de-Nim" aria-hidden="true"><span class="octicon octicon-link"></span></a>Application au jeu de Nim<a class="anchor-link" href="#Application-au-jeu-de-Nim"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Deux joueurs tirent à leur tour des allumettes d'une boîte, avec les règles suivantes :</p>
+<ul>
+<li>Chaque joueur tire à chaque fois au moins une allumette</li>
+<li>Le premier joueur ne retire pas la totalité des allumettes au premier tour</li>
+<li>Un joueur tire au plus deux fois le nombre d'allumettes tirées par le joueur précédent</li>
+<li>Le joueur qui retire la dernière allumette a gagné</li>
+</ul>
+<p>On peut montrer que si le nombre initial d'allumettes n'est pas un nombre de Fibonacci, une stratégie gagnante pour le joueur 1 consiste à tirer autant d'allumettes que le plus petit terme de la décomposition de Zeckendorf du nombre d'allumettes.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">playNim</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">""" Runs a game of Nim against computer with n not being a Fibonacci number"""</span>
+    <span class="n">tour</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">joueur</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">tour</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">tirage</span> <span class="o">=</span> <span class="n">getZeckendorf</span><span class="p">(</span><span class="n">n</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Tour </span><span class="si">{}</span><span class="s2"> :"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tour</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Joueur 1 : </span><span class="si">{}</span><span class="s2"> allumettes restantes."</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Ordinateur tire </span><span class="si">{}</span><span class="s2"> allumettes"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tirage</span><span class="p">))</span>
+        <span class="n">n</span> <span class="o">-=</span> <span class="n">tirage</span>
+        <span class="k">if</span> <span class="n">n</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Ordinateur a gagné!"</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Joueur 2 : </span><span class="si">{}</span><span class="s2"> allumettes restantes."</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+        <span class="n">n</span> <span class="o">-=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">"Tirer entre 1 et </span><span class="si">{}</span><span class="s2"> allumettes : "</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">tirage</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">n</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Vous avez gagné!"</span><span class="p">)</span>
+            <span class="k">break</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">playNim</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Tour 1 :
+Joueur 1 : 60 allumettes restantes.
+Ordinateur tire 5 allumettes
+Joueur 2 : 55 allumettes restantes.
+Tirer entre 1 et 10 allumettes : 1
+Tour 2 :
+Joueur 1 : 54 allumettes restantes.
+Ordinateur tire 2 allumettes
+Joueur 2 : 52 allumettes restantes.
+Tirer entre 1 et 4 allumettes : 4
+Tour 3 :
+Joueur 1 : 48 allumettes restantes.
+Ordinateur tire 1 allumettes
+Joueur 2 : 47 allumettes restantes.
+Tirer entre 1 et 2 allumettes : 1
+Tour 4 :
+Joueur 1 : 46 allumettes restantes.
+Ordinateur tire 1 allumettes
+Joueur 2 : 45 allumettes restantes.
+Tirer entre 1 et 2 allumettes : 1
+Tour 5 :
+Joueur 1 : 44 allumettes restantes.
+Ordinateur tire 2 allumettes
+Joueur 2 : 42 allumettes restantes.
+Tirer entre 1 et 4 allumettes : 1
+Tour 6 :
+Joueur 1 : 41 allumettes restantes.
+Ordinateur tire 2 allumettes
+Joueur 2 : 39 allumettes restantes.
+Tirer entre 1 et 4 allumettes : 1
+Tour 7 :
+Joueur 1 : 38 allumettes restantes.
+Ordinateur tire 1 allumettes
+Joueur 2 : 37 allumettes restantes.
+Tirer entre 1 et 2 allumettes : 1
+Tour 8 :
+Joueur 1 : 36 allumettes restantes.
+Ordinateur tire 2 allumettes
+Joueur 2 : 34 allumettes restantes.
+Tirer entre 1 et 4 allumettes : 1
+Tour 9 :
+Joueur 1 : 33 allumettes restantes.
+Ordinateur tire 1 allumettes
+Joueur 2 : 32 allumettes restantes.
+Tirer entre 1 et 2 allumettes : 2
+Tour 10 :
+Joueur 1 : 30 allumettes restantes.
+Ordinateur tire 1 allumettes
+Joueur 2 : 29 allumettes restantes.
+Tirer entre 1 et 2 allumettes : 2
+Tour 11 :
+Joueur 1 : 27 allumettes restantes.
+Ordinateur tire 1 allumettes
+Joueur 2 : 26 allumettes restantes.
+Tirer entre 1 et 2 allumettes : 2
+Tour 12 :
+Joueur 1 : 24 allumettes restantes.
+Ordinateur tire 3 allumettes
+Joueur 2 : 21 allumettes restantes.
+Tirer entre 1 et 6 allumettes : 6
+Tour 13 :
+Joueur 1 : 15 allumettes restantes.
+Ordinateur tire 2 allumettes
+Joueur 2 : 13 allumettes restantes.
+Tirer entre 1 et 4 allumettes : 1
+Tour 14 :
+Joueur 1 : 12 allumettes restantes.
+Ordinateur tire 1 allumettes
+Joueur 2 : 11 allumettes restantes.
+Tirer entre 1 et 2 allumettes : 1
+Tour 15 :
+Joueur 1 : 10 allumettes restantes.
+Ordinateur tire 2 allumettes
+Joueur 2 : 8 allumettes restantes.
+Tirer entre 1 et 4 allumettes : 1
+Tour 16 :
+Joueur 1 : 7 allumettes restantes.
+Ordinateur tire 2 allumettes
+Joueur 2 : 5 allumettes restantes.
+Tirer entre 1 et 4 allumettes : 1
+Tour 17 :
+Joueur 1 : 4 allumettes restantes.
+Ordinateur tire 1 allumettes
+Joueur 2 : 3 allumettes restantes.
+Tirer entre 1 et 2 allumettes : 2
+Tour 18 :
+Joueur 1 : 1 allumettes restantes.
+Ordinateur tire 1 allumettes
+Ordinateur a gagné!
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="cbohnert67/Data-Science-Xperiences"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/Data-Science-Xperiences/jupyter/2021/12/01/Zeckendorf-et-jeu-du-nim.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/Data-Science-Xperiences/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/Data-Science-Xperiences/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/Data-Science-Xperiences/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>A personal blog &amp; portfolio from a Data Science enthusiast.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/cbohnert67" title="cbohnert67"><svg class="svg-icon grey"><use xlink:href="/Data-Science-Xperiences/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
