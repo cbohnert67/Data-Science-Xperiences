@@ -181,7 +181,9 @@ Create a project with some code to use with our first git repo.
 For example, create such a file structure :
 
 README.md
+
 .gitignore
+
 test_script.py
 
 Initialize a git repo for your project, and take a snapshot (“commit”) of your code.
@@ -243,9 +245,9 @@ Delete anything you don’t want.
 
 ## A typical workflow for a Data Science project 
 
-1. Open up your terminal.
+Open up your terminal.
 
-2. Create a new conda environment for your project :
+Create a new conda environment for your project :
 
 ```shell
 conda create -n my-project-env pandas jupyter scikit-learn matplotlib seaborn
@@ -255,19 +257,19 @@ conda create -n my-project-env pandas jupyter scikit-learn matplotlib seaborn
 conda activate my-project-env
 ```
 
-3. Create a new project directory using cookiecutter :
+Create a new project directory using cookiecutter :
 
 ```shell
 cookiecutter https://github.com/drivendata/cookiecutter-data-science
 ```
 
-4. Open up your new project directory in VS Code :
+Open up your new project directory in VS Code :
 
 ```shell
 code my-project-directory
 ```
 
-5. Open up a terminal in VS Code, initialize a new git repo, and take a first snapshot.
+Open up a terminal in VS Code, initialize a new git repo, and take a first snapshot.
 
 ```shell
 git init
@@ -281,7 +283,7 @@ git add .
 git commit -m “First commit.”
 ```
 
-6. Create a new repo on GitHub, then follow the instructions to push your code from your computer project directory to that repo :
+Create a new repo on GitHub, then follow the instructions to push your code from your computer project directory to that repo :
 
 ```shell
 git remote add origin https://www.github.com/yourname/your-repo-name.git
