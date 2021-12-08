@@ -6,8 +6,6 @@ categories: [markdown]
 title: Setting Up a Data Science Environment on Linux
 ---
 
-# Setting Up a Data Science Environment on Linux
-
 This article is a quick guide showing how to setting up a minimal Linux environment for your Data Science projects.
 
 You should be familiar with the most usual bash commands for navigating thourgh your file structure and to install programs.
