@@ -287,9 +287,11 @@ window.onload = wrap_img;
 
 <p>For example, create such a file structure :</p>
 
-<p>README.md
-.gitignore
-test_script.py</p>
+<p>README.md</p>
+
+<p>.gitignore</p>
+
+<p>test_script.py</p>
 
 <p>Initialize a git repo for your project, and take a snapshot (“commit”) of your code.</p>
 
@@ -349,14 +351,9 @@ test_script.py</p>
 <h2 id="a-typical-workflow-for-a-data-science-project">
 <a class="anchor" href="#a-typical-workflow-for-a-data-science-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>A typical workflow for a Data Science project</h2>
 
-<ol>
-  <li>
-    <p>Open up your terminal.</p>
-  </li>
-  <li>
-    <p>Create a new conda environment for your project :</p>
-  </li>
-</ol>
+<p>Open up your terminal.</p>
+
+<p>Create a new conda environment for your project :</p>
 
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda create <span class="nt">-n</span> my-project-env pandas jupyter scikit-learn matplotlib seaborn
 </code></pre></div></div>
@@ -364,23 +361,17 @@ test_script.py</p>
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda activate my-project-env
 </code></pre></div></div>
 
-<ol>
-  <li>Create a new project directory using cookiecutter :</li>
-</ol>
+<p>Create a new project directory using cookiecutter :</p>
 
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cookiecutter https://github.com/drivendata/cookiecutter-data-science
 </code></pre></div></div>
 
-<ol>
-  <li>Open up your new project directory in VS Code :</li>
-</ol>
+<p>Open up your new project directory in VS Code :</p>
 
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>code my-project-directory
 </code></pre></div></div>
 
-<ol>
-  <li>Open up a terminal in VS Code, initialize a new git repo, and take a first snapshot.</li>
-</ol>
+<p>Open up a terminal in VS Code, initialize a new git repo, and take a first snapshot.</p>
 
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init
 </code></pre></div></div>
@@ -391,9 +382,7 @@ test_script.py</p>
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">-m</span> “First commit.”
 </code></pre></div></div>
 
-<ol>
-  <li>Create a new repo on GitHub, then follow the instructions to push your code from your computer project directory to that repo :</li>
-</ol>
+<p>Create a new repo on GitHub, then follow the instructions to push your code from your computer project directory to that repo :</p>
 
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote add origin https://www.github.com/yourname/your-repo-name.git
 </code></pre></div></div>
