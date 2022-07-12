@@ -6,11 +6,11 @@
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
 
-title: Data Science Xperiences
-description: A personal blog & portfolio from a Data Science enthusiast.
+title: Data Science eXperiences
+description: A blog & from a Data Science enthusiast.
 github_username: cbohnert67
 # you can comment the below line out if your repo name is not different than your baseurl
-github_repo: "Data-Science-Xperiences"
+github_repo: "Data-Science-eXperiences"
 
 # OPTIONAL: override baseurl and url if using a custom domain
 # Note: leave out the trailing / from this value. 
