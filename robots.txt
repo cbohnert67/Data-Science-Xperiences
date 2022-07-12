@@ -1,1 +1,1 @@
-Sitemap: https://cbohnert67.github.io/Data-Science-eXperiences/sitemap.xml
+Sitemap: https://cbohnert67.github.io/Data-Science-Xperiences/sitemap.xml
