@@ -8,7 +8,7 @@ https://cbohnert67.github.io/Data-Science-eXperiences/
 
 # Data Science eXperiences
 
-Practical learning resources from the Data Science enthusiast.
+Practical learning resources for the Data Science enthusiast.
 
 You can look around and read about my programming exercices, my data stories and data science projects written in Python.
 
