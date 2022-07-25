@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Lap, can you quickly show me a long social chain? | Data Science eXperiences</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Lap, can you quickly show me a long social chain?" />
+<meta name="author" content="Cédric Bohnert" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="You are challenging your laptop. You devised a plan to compute a long social chain. But your first attemps failed, timely speaking. Can you think of an alternative? What about tweaking your computations to get them fast?" />
+<meta property="og:description" content="You are challenging your laptop. You devised a plan to compute a long social chain. But your first attemps failed, timely speaking. Can you think of an alternative? What about tweaking your computations to get them fast?" />
+<link rel="canonical" href="https://cbohnert67.github.io/Data-Science-eXperiences/jupyter/2022/07/23/sociable-sequences.html" />
+<meta property="og:url" content="https://cbohnert67.github.io/Data-Science-eXperiences/jupyter/2022/07/23/sociable-sequences.html" />
+<meta property="og:site_name" content="Data Science eXperiences" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-07-23T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Lap, can you quickly show me a long social chain?" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Cédric Bohnert"},"dateModified":"2022-07-23T00:00:00-05:00","datePublished":"2022-07-23T00:00:00-05:00","description":"You are challenging your laptop. You devised a plan to compute a long social chain. But your first attemps failed, timely speaking. Can you think of an alternative? What about tweaking your computations to get them fast?","headline":"Lap, can you quickly show me a long social chain?","mainEntityOfPage":{"@type":"WebPage","@id":"https://cbohnert67.github.io/Data-Science-eXperiences/jupyter/2022/07/23/sociable-sequences.html"},"url":"https://cbohnert67.github.io/Data-Science-eXperiences/jupyter/2022/07/23/sociable-sequences.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/Data-Science-eXperiences/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://cbohnert67.github.io/Data-Science-eXperiences/feed.xml" title="Data Science eXperiences" /><link rel="shortcut icon" type="image/x-icon" href="/Data-Science-eXperiences/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/Data-Science-eXperiences/">Data Science eXperiences</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/Data-Science-eXperiences/about/">About</a><a class="page-link" href="/Data-Science-eXperiences/search/">Search</a><a class="page-link" href="/Data-Science-eXperiences/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Lap, can you quickly show me a long social chain?</h1><p class="page-description">You are challenging your laptop. You devised a plan to compute a long social chain. But your first attemps failed, timely speaking. Can you think of an alternative? What about tweaking your computations to get them fast?</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-07-23T00:00:00-05:00" itemprop="datePublished">
+        Jul 23, 2022
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Cédric Bohnert</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      7 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/Data-Science-eXperiences/categories/#jupyter">jupyter</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/cbohnert67/Data-Science-eXperiences/tree/master/_notebooks/2022-07-23-sociable-sequences.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/Data-Science-eXperiences/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/cbohnert67/Data-Science-eXperiences/master?filepath=_notebooks%2F2022-07-23-sociable-sequences.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/Data-Science-eXperiences/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#The-objective-of-the-challenge:">The objective of the challenge: </a></li>
+<li class="toc-entry toc-h2"><a href="#The-tools-you-can-use-and-why?">The tools you can use and why? </a></li>
+<li class="toc-entry toc-h2"><a href="#How-to-deal-with-the-challenge?">How to deal with the challenge? </a></li>
+<li class="toc-entry toc-h2"><a href="#A-first-step:-getting-some-perfect-numbers.">A first step: getting some perfect numbers. </a></li>
+<li class="toc-entry toc-h2"><a href="#A-second-step:-computing-friendly-numbers.">A second step: computing friendly numbers. </a></li>
+<li class="toc-entry toc-h2"><a href="#The-final-step:-tweaking-your-algorithm-to-make-it-faster.">The final step: tweaking your algorithm to make it faster. </a></li>
+<li class="toc-entry toc-h2"><a href="#Conclusion-and-take-away:">Conclusion and take-away: </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-07-23-sociable-sequences.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-objective-of-the-challenge:">
+<a class="anchor" href="#The-objective-of-the-challenge:" aria-hidden="true"><span class="octicon octicon-link"></span></a>The objective of the challenge:<a class="anchor-link" href="#The-objective-of-the-challenge:"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You want to challenge your laptop.</p>
+<p>Working with large and big integers is central to cryptography and cybersecurity applications.</p>
+<p>You want to get a sense of feeling about working with big numbers.</p>
+<p>You know that a very specific task in the domain, which still challenges teams of computer scientists, is to find the prime decomposition of a very big integer in a reasonable time.</p>
+<p>This task is soundly simple in those words.</p>
+<p>The formal question is however to find the list of prime numbers, and their multiplicity, with which such a decomposition is found.</p>
+<p>But, you know finding big primes is practically computationally very expensive. That's interesting!</p>
+<p>There aren't indeed very fast algorithms that can factor a, let'say 'cryptographic number', which is a very big integer used in cybersecurity.</p>
+<p>The overall objective of your new challenge is unique. It deserves you to bring a feel of the need of tweaking even the simplest algorithms to speed them up and solve a task.</p>
+<p>More specifically, you want to code an efficient algorithm of prime decomposition that will push your laptop in the run.</p>
+<p>Intrigued about that problem, you discovered some special fun integers in your discrete math textbook:</p>
+<p>You want to exhibit the longest possible social chain with your laptop and with a minimal set of basic python tools and rules.</p>
+<p>Let's get started!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-tools-you-can-use-and-why?">
+<a class="anchor" href="#The-tools-you-can-use-and-why?" aria-hidden="true"><span class="octicon octicon-link"></span></a>The tools you can use and why?<a class="anchor-link" href="#The-tools-you-can-use-and-why?"> </a>
+</h2>
+<p>You are only allowed to use the Python core library to work out arithmetic and lists operations in your code, including the modulo operation.</p>
+<p>Especially, you constrain yourself not using any specific extra module to code your solution with, except the Datetime and Matplolib for timing considerations.</p>
+<p>Computations are long and you guess you will need to track time and to plot some curves while investigating the complexity of the problem.</p>
+<p>You indeed want to visualize the complexity of the solutions you find. You want to plot the time required to compute a set of inputs.</p>
+<p>You are finally additionnaly warmly welcome to use mathematical tricks to tweak your algorithms with and to speed them up. This is an open book challenge.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="How-to-deal-with-the-challenge?">
+<a class="anchor" href="#How-to-deal-with-the-challenge?" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to deal with the challenge?<a class="anchor-link" href="#How-to-deal-with-the-challenge?"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You are given the next three basic definitions to start with:</p>
+<ul>
+<li>A perfect number $n$ is positive integer whose proper divisors (all divisors except $n$ itself) add up to $n$.</li>
+<li>Friendly numbers is a couple $(m, n)$ of positive integers where the proper divisors of $m$ add up to $n$, and similarly, the proper divisors of $n$ add up to $m$.</li>
+<li>A social chain is a cyclic finite sequence of $q$ positive integers $(n_1, n_2, \dots, n_q$) in which one element' proper divisors add up to his successor.</li>
+</ul>
+<p>This is however declarative knowledge. Although you know what these definitions mean, they don't teach you how to compute those math facts.</p>
+<p>You therefore devise a plan for the computation.</p>
+<p>You will start with the most basic approach: the naive approach. Listing each and every divisors of an integer.</p>
+<p>Computing some numbers in such a way will provide a baseline for the complexity of the problem.</p>
+<p>You next devise to code an algorithm of prime decomposition. The Sieve of Erastoten is one example. You can choose one or more examples.</p>
+<p>Your bet is a faster running time.</p>
+<p>After thourough thinking, you have a three steps plan which the details are given in the next sections.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="A-first-step:-getting-some-perfect-numbers.">
+<a class="anchor" href="#A-first-step:-getting-some-perfect-numbers." aria-hidden="true"><span class="octicon octicon-link"></span></a>A first step: getting some perfect numbers.<a class="anchor-link" href="#A-first-step:-getting-some-perfect-numbers."> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To tackle the first task, you have to write three utilities that do the following jobs :</p>
+<ul>
+<li>A function that takes a positive integer $n$ and returns a list of all its positive divisors.</li>
+<li>A function that takes a positive integer $n$  and returns True if $n$ is a perfect number.</li>
+<li>A function that takes a positive integer $N$ and returns a list of all perfect numbers $n_1, n_2, \dots n_q$ less than $N$.</li>
+</ul>
+<p>To that point, you will be getting a list of perfect numbers. You could therefore explore how long it takes to get a list for large $N$.</p>
+<p>Note that in order to compute the divisors of a positive integer $n$ using a naive exhaustion approach, you will simply test each and every integers less than or equal to $n$ for divisibility.</p>
+<p>You are furthermore suggested to keep track of the computation time to get a perfect numbers list and to study the temporal complexity this naive approach has.</p>
+<p>You can there produce some nice visualisations to show your results.</p>
+<p>When having an algorithm that finishes in a reasonable time and that is correct, whatever slow it is, you are ready to verify some particular perfect numbers properties.</p>
+<p>For instance, what about the sum $S = \sum_{i=1}^k \frac{1}{d_i}$, where $d_i$ describes the set of all divisors of a positive integer ?</p>
+<p>You can conjecture a result and try to prove it.</p>
+<p>Finally in this first step, you have now tools to play with perfect numbers. Can you get a list the first ten perfect numbers in less than 30 minutes ? What is the biggest perfect number you can compute?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="A-second-step:-computing-friendly-numbers.">
+<a class="anchor" href="#A-second-step:-computing-friendly-numbers." aria-hidden="true"><span class="octicon octicon-link"></span></a>A second step: computing friendly numbers.<a class="anchor-link" href="#A-second-step:-computing-friendly-numbers."> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Your second task is to compute a list of friendly numbers.</p>
+<p>You need therefore to modify your solution such that your algorithm checks whether a couple of positive integers are friendly numbers.</p>
+<p>Recall. These numbers are defined such that the sum of the divisors of the first number is equal to the second number and vice-versa.</p>
+<p>As in the first task, you will still use a naive solution and you will still be confronted to slow computations.</p>
+<p>How long does it take compute the first 20 friendly numbers?</p>
+<p>Can you produce a time complexity plot? Can you guess the Big Oh complexity of the naive solution?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-final-step:-tweaking-your-algorithm-to-make-it-faster.">
+<a class="anchor" href="#The-final-step:-tweaking-your-algorithm-to-make-it-faster." aria-hidden="true"><span class="octicon octicon-link"></span></a>The final step: tweaking your algorithm to make it faster.<a class="anchor-link" href="#The-final-step:-tweaking-your-algorithm-to-make-it-faster."> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Well, until now, if you wanted to compute some special numbers with a fast algorithm, you lose the challenge.</p>
+<p>Your laptop has not enough computational power to exhibe a large perfect number or a large friendly numbers.</p>
+<p>However, this work gives you a baseline solution that you can try to enhance.</p>
+<p>This is your last and most important task.</p>
+<p>Remembering the prime decomposition of a positive integer, you fortunately learn about a result that you guess will help.</p>
+<p>The sum of every divisors of $n$, including $n$ is given by the following formula:</p>
+<p>
+$$s(n)= \prod_{i=1}^k \frac{p_i^{\alpha_i+1}-1}{p_i-1}$$
+</p>
+<p>where $p_i$ et $\alpha_i$ are the components of the prime decomposition of $n$. This is easily checked.</p>
+<p>Hence, instead of searching for each and every divisors of $n$ as in the naive approach, you now want to compute for the prime decomposition of that number.</p>
+<p>That's your initial objective and you're to succeed.</p>
+<p>As already said, there are several algorithms that tackle this problem. Choose one or two of them to implement your new solution.</p>
+<p>Then study the time complexity of your solution. What is the longest social chain you can exhibit in 30 minutes?</p>
+<p>What is the longest social chain you can compute patiently with your laptop?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Conclusion-and-take-away:">
+<a class="anchor" href="#Conclusion-and-take-away:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion and take-away:<a class="anchor-link" href="#Conclusion-and-take-away:"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You hopefully worked out successfully the three steps of this confrontation with your laptop.</p>
+<p>The first two tasks were not fast enough to tackle the problem of exhibing special integers large enough you can work or play with in a reasonable time...</p>
+<p>Then you tweaked your solution using prime decompositions. This speeds up your algorithm and still you realize you are limited to relatively small numbers.</p>
+<p>Prime decomposition is declarative knowledge, as compared to procedural knowledge. There are multitude algorithms to achieve this task.</p>
+<p>You have now a sense of what is a hard problem.</p>
+<p>Designing fast algorithms for prime decomposition and a various classes of problems, even resulting from soundly simple descriptions, can be very challenging and is still in active research.</p>
+<p>As a successul Data Scientist, you have to design, optimize and work with as fast as possibe learning algorithms.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="cbohnert67/Data-Science-eXperiences"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/Data-Science-eXperiences/jupyter/2022/07/23/sociable-sequences.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/Data-Science-eXperiences/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/Data-Science-eXperiences/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/Data-Science-eXperiences/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Practical learning resources for a Data Science enthusiast.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/cbohnert67" target="_blank" title="cbohnert67"><svg class="svg-icon grey"><use xlink:href="/Data-Science-eXperiences/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
